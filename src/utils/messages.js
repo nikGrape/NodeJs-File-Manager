@@ -20,5 +20,5 @@ export const invalidInput = (input) => {
 };
 
 export const use = (command) => {
-	console.log(`Invalid input: ${addGreenColor(input)}`);
+	console.log(`use: ${addGreenColor(command)}`);
 };

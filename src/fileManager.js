@@ -2,6 +2,9 @@ import { welcome, goodBye, usage, invalidInput } from './utils/messages.js';
 import { pwd } from './nwd/pwd.js';
 import { up, cd } from './nwd/cd.js';
 import { ls } from './nwd/ls.js';
+import { cat } from './files/cat.js';
+import { add } from './files/add.js';
+import { rn } from './files/rn.js';
 
 const args = process.argv.slice(2);
 
@@ -10,7 +13,7 @@ if (!args[0].startsWith('--username=')) {
 	process.exit(1);
 }
 
-const username = args[0].split(' ')[1];
+const username = args[0].split('=')[1];
 
 process.on('SIGINT', () => {
 	goodBye(username);
@@ -21,9 +24,10 @@ pwd();
 
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', (data) => {
-	console.log(data);
-	const tmp = data.toString().split(' ')[0].trim();
-	switch (tmp) {
+	const [command, ...args] = data.split(' ').map((v) => v.toString().trim());
+	console.log('command: ', command);
+	console.log(args);
+	switch (command) {
 		case 'pwd':
 			pwd();
 			break;
@@ -34,8 +38,16 @@ process.stdin.on('data', (data) => {
 			ls();
 			break;
 		case 'cd':
-			console.log(data.toString().split(' '));
-			cd(data.toString().split(' ')[1].trim());
+			cd(args[0]);
+			break;
+		case 'cat':
+			cat(args[0]);
+			break;
+		case 'add':
+			add(args[0]);
+			break;
+		case 'rn':
+			rn(args[0], args[1]);
 			break;
 		default:
 			console.log(data);

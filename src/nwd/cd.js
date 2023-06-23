@@ -13,6 +13,10 @@ export const up = () => {
  * @param {string} path
  */
 export const cd = (dir) => {
+	if (!dir) {
+		invalidInput('Argument is required');
+		return;
+	}
 	try {
 		const newPath = path.resolve(getCurrentDir(), dir);
 
