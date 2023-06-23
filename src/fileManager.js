@@ -4,11 +4,14 @@ import { up, cd } from './nwd/cd.js';
 import { ls } from './nwd/ls.js';
 import { cat } from './files/cat.js';
 import { add } from './files/add.js';
-import { rn } from './files/rn.js';
+import { rn } from './files/rename.js';
+import { cp } from './files/copy.js';
+import { mv } from './files/move.js';
+import { rm } from './files/remove.js';
 
 const args = process.argv.slice(2);
 
-if (!args[0].startsWith('--username=')) {
+if (args.length < 1 || !args[0].startsWith('--username=')) {
 	usage();
 	process.exit(1);
 }
@@ -48,6 +51,15 @@ process.stdin.on('data', (data) => {
 			break;
 		case 'rn':
 			rn(args[0], args[1]);
+			break;
+		case 'cp':
+			cp(args[0], args[1]);
+			break;
+		case 'mv':
+			mv(args[0], args[1]);
+			break;
+		case 'rm':
+			rm(args[0]);
 			break;
 		default:
 			console.log(data);
