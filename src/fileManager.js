@@ -8,6 +8,10 @@ import { rn } from './files/rename.js';
 import { cp } from './files/copy.js';
 import { mv } from './files/move.js';
 import { rm } from './files/remove.js';
+import { handleOS } from './os/handleOS.js';
+import { hash } from './hash/hash.js';
+import { compress } from './compress/compress.js';
+import { decompress } from './compress/decompress.js';
 
 const args = process.argv.slice(2);
 
@@ -28,8 +32,6 @@ pwd();
 process.stdin.setEncoding('utf8');
 process.stdin.on('data', (data) => {
 	const [command, ...args] = data.split(' ').map((v) => v.toString().trim());
-	console.log('command: ', command);
-	console.log(args);
 	switch (command) {
 		case 'pwd':
 			pwd();
@@ -61,9 +63,20 @@ process.stdin.on('data', (data) => {
 		case 'rm':
 			rm(args[0]);
 			break;
+		case 'os':
+			handleOS(args[0]);
+			break;
+		case 'hash':
+			hash(args[0]);
+			break;
+		case 'compress':
+			compress(args[0], args[1]);
+			break;
+		case 'decompress':
+			decompress(args[0], args[1]);
+			break;
 		default:
-			console.log(data);
 			invalidInput(data);
 	}
-	if (data.toString().trim() != 'pwd') pwd();
+	if (data.toString().trim() != 'pwd') setTimeout(() => pwd(), 30);
 });
