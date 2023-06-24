@@ -4,7 +4,8 @@
 	"description": "custom file manager made with NodeJS",
 	"main": "index.js",
 	"scripts": {
-		"test": "echo test!"
+		"test": "echo test!",
+    "start": "node src/fileManager.js"
 	},
 	"repository": {
 		"type": "git",
@@ -20,5 +21,6 @@
 	"bugs": {
 		"url": "https://github.com/nikGrape/NodeJs-File-Manager/issues"
 	},
-	"homepage": "https://github.com/nikGrape/NodeJs-File-Manager#readme"
+	"homepage": "https://github.com/nikGrape/NodeJs-File-Manager#readme",
+  "type": "module"
 }
